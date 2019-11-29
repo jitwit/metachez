@@ -2,10 +2,13 @@
         (only (srfi :13) string-tokenize))
 
 (define example
-  "programs/twoplustwo.mm")
+  "twoplustwo.mm")
 
-(define mm-directory
-  (make-parameter "."))
+(define metachez-load-path
+  (make-parameter "./programs"))
+
+(define (expand-metachez-path file)
+  (string-append (metachez-load-path) "/" file))
 
 (define (file->string file)
   (with-input-from-file file
@@ -19,6 +22,4 @@
 
 (include "parse.ss")
 
-(define (run-parser program-file)
-  (let ((program (file->string program-file)))
-    (time (parse (lex program)))))
+
